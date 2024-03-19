@@ -4,12 +4,26 @@ import { createClient } from '@supabase/supabase-js';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 
-/* import TooltipForm from './components/TooltipForm'; */
+const apiUrl = import.meta.env.VITE_REACT_APP_SUPABASE_URL;
+const apiKey = import.meta.env.VITE_REACT_APP_SUPABASE_KEY;
 
-const supabase = createClient(
-  'https://xgnqrxbwxccvhzsdkglq.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnbnFyeGJ3eGNjdmh6c2RrZ2xxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4MDEzNDMsImV4cCI6MjAyNjM3NzM0M30.CDatfc0Fx_OP3bzvcpgv7SJ3qzpYr8GhxvednHkSoXY'
-);
+class SupabaseSingleton {
+  constructor(apiUrl, apiKey) {
+    if (!SupabaseSingleton.instance) {
+      this.supabase = createClient(apiUrl, apiKey);
+      SupabaseSingleton.instance = this;
+    }
+
+    return SupabaseSingleton.instance;
+  }
+
+  getInstance() {
+    return this.supabase;
+  }
+}
+
+const supabaseSingleton = new SupabaseSingleton(apiUrl, apiKey);
+const supabase = supabaseSingleton.getInstance();
 
 function App() {
   const [information, setInformation] = useState([]);
