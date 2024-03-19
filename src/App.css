@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  padding: 2rem;
+  text-align: left;
+}
+
+.greeting {
+  padding: 1rem 9rem;
+}
+
+.tooltip-content > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tooltip {
+  padding: 1rem 0rem;
+}
+
+.info-entry {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
